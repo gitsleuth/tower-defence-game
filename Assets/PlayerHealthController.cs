@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class PlayerHealthController : MonoBehaviour
 {
-    private float playerHealth = 100;
+    public TMPro.TextMeshProUGUI playerHealthTextGUI;
+
+    public float playerHealth = 100;
 
     // Start is called before the first frame update
     private void Start()
     {
-
+        DisplayPlayerHealth();
     }
 
     // Update is called once per frame
@@ -26,11 +28,18 @@ public class PlayerHealthController : MonoBehaviour
         {
             OnPlayerDead();
         }
+
+        DisplayPlayerHealth();
     }
 
     // We'll use this later
     public void OnPlayerDead()
     {
         print("Player died");
+    }
+
+    private void DisplayPlayerHealth()
+    {
+        playerHealthTextGUI.text = "Player Health: " + playerHealth.ToString();
     }
 }

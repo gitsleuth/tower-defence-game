@@ -31,6 +31,6 @@ public class PlayerHealthController : MonoBehaviour
     // We'll use this later
     public void OnPlayerDead()
     {
-
+        print("Player died");
     }
 }

@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    [SerializeField] PlayerHealthController playerHealthController;
+
     public GameObject enemy;
     public GameObject exit;
 
     public float enemySpeed = 2;
     public float timeBetweenSpawns = 1;
+    public float enemyDamage = 5;
 
     private float timeUntilNextSpawn = 0;
     private List<GameObject> enemies = new List<GameObject>();
@@ -54,6 +57,8 @@ public class EnemyController : MonoBehaviour
                 // Destroy enemy
                 Destroy(enemy);
                 enemies.RemoveAt(i);
+
+                playerHealthController.TakeDamage(enemyDamage);
             }
         }
     }

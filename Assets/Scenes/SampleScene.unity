@@ -894,10 +894,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 918eb361deec94b4db629e376911b707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHealthController: {fileID: 2142398384}
   enemy: {fileID: 946723578}
   exit: {fileID: 732805958}
   enemySpeed: 2
   timeBetweenSpawns: 2
+  enemyDamage: 5
 --- !u!1 &1894790039
 GameObject:
   m_ObjectHideFlags: 0

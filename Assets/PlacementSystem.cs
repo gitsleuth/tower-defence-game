@@ -8,6 +8,8 @@ public class PlacementSystem : MonoBehaviour
     public GameObject fighterToBeBuilt;
 
     private List<GameObject> fighters = new List<GameObject>();
+    private bool movingFighterPlacementMarker = true;
+    private bool canMove = true;
 
     // Start is called before the first frame update
     private void Start()
@@ -22,20 +24,28 @@ public class PlacementSystem : MonoBehaviour
         {
             Touch touch = Input.GetTouch(0);
 
-            if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved) {
+            if ((touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved) && canMove) {
                 if (touch.phase == TouchPhase.Began)
                 {
                     fighterPlacementMarker.GetComponent<SpriteRenderer>().enabled = true;
                     fighterPlacementMarker.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+
+                    canMove = true;
                 }
 
                 Vector3 touchedPos = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 10));
                 fighterPlacementMarker.transform.position = touchedPos;
             } else if (touch.phase == TouchPhase.Ended)
             {
-                fighters.Add(Instantiate(fighterToBeBuilt, fighterPlacementMarker.transform.position, fighterPlacementMarker.transform.rotation));
-                fighterPlacementMarker.GetComponent<SpriteRenderer>().enabled = false;
-                fighterPlacementMarker.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+                if (canMove && movingFighterPlacementMarker)
+                {
+                    fighters.Add(Instantiate(fighterToBeBuilt, fighterPlacementMarker.transform.position, fighterPlacementMarker.transform.rotation));
+                    fighterPlacementMarker.GetComponent<SpriteRenderer>().enabled = false;
+                    fighterPlacementMarker.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+                } else
+                {
+                    movingFighterPlacementMarker = true;
+                }
             }
         }
     }
@@ -49,5 +59,13 @@ public class PlacementSystem : MonoBehaviour
             Destroy(fighter);
             fighters.RemoveAt(i);
         }
+    }
+
+    public void ResetFighterPlacementMarker()
+    {
+        fighterPlacementMarker.GetComponent<SpriteRenderer>().enabled = false;
+        fighterPlacementMarker.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+
+        movingFighterPlacementMarker = false;
     }
 }

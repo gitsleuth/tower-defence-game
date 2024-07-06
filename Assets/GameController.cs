@@ -25,5 +25,6 @@ public class GameController : MonoBehaviour
         playerHealthController.ResetPlayerHealth();
         enemyController.ResetEnemies();
         placementSystem.DestroyAllFighters();
+        placementSystem.ResetFighterPlacementMarker();
     }
 }

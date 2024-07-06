@@ -5,6 +5,7 @@ using UnityEngine;
 public class InputController : MonoBehaviour
 {
     [SerializeField] PlacementSystem placementSystem;
+    [SerializeField] FighterObjectController fighterObjectController;
 
     public GameObject fireRadius;
 
@@ -41,8 +42,17 @@ public class InputController : MonoBehaviour
                         if (touchedPos.x >= fighterPositionX - fighterLocalScaleXHalf && touchedPos.x <= fighterPositionX + fighterLocalScaleXHalf
                             && touchedPos.y >= fighterPositionY - fighterLocalScaleYHalf && touchedPos.y <= fighterPositionY + fighterLocalScaleYHalf)
                         {
-                            fireRadius.GetComponent<SpriteRenderer>().enabled = true;
-                            fireRadius.transform.position = fighterPosition;
+                            if (!fighterObjectController.fighterObjectTouchedBefore || fighterObjectController.fighterObjectTouchedBefore != fighter)
+                            {
+                                fighterObjectController.fighterObjectTouchedBefore = fighter;
+                                fireRadius.transform.position = fighter.transform.position;
+                                fireRadius.GetComponent<SpriteRenderer>().enabled = true;
+                            } else if (fighterObjectController.fighterObjectTouchedBefore == fighter)
+                            {
+                                fighterObjectController.fighterObjectTouchedBefore = null;
+                                fireRadius.transform.position = fighter.transform.position;
+                                fireRadius.GetComponent<SpriteRenderer>().enabled = false;
+                            }
 
                             toggledFireRadius = true;
                         }

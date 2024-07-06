@@ -7,6 +7,8 @@ public class PlacementSystem : MonoBehaviour
     public GameObject fighterPlacementMarker;
     public GameObject fighterToBeBuilt;
 
+    private List<GameObject> fighters = new List<GameObject>();
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -31,10 +33,21 @@ public class PlacementSystem : MonoBehaviour
                 fighterPlacementMarker.transform.position = touchedPos;
             } else if (touch.phase == TouchPhase.Ended)
             {
-                Instantiate(fighterToBeBuilt, fighterPlacementMarker.transform.position, fighterPlacementMarker.transform.rotation);
+                fighters.Add(Instantiate(fighterToBeBuilt, fighterPlacementMarker.transform.position, fighterPlacementMarker.transform.rotation));
                 fighterPlacementMarker.GetComponent<SpriteRenderer>().enabled = false;
                 fighterPlacementMarker.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
             }
+        }
+    }
+
+    public void DestroyAllFighters()
+    {
+        for (int i = fighters.Count - 1; i >= 0; i--)
+        {
+            GameObject fighter = fighters[i];
+
+            Destroy(fighter);
+            fighters.RemoveAt(i);
         }
     }
 }

@@ -12,9 +12,9 @@ public class EnemyController : MonoBehaviour
     public float enemySpeed = 2;
     public float timeBetweenSpawns = 1;
     public float enemyDamage = 5;
+    public List<GameObject> enemies = new List<GameObject>();
 
     private float timeUntilNextSpawn = 0;
-    private List<GameObject> enemies = new List<GameObject>();
 
     // Start is called before the first frame update
     private void Start()
@@ -31,6 +31,7 @@ public class EnemyController : MonoBehaviour
 
         while (timeUntilNextSpawn <= 0) {
             timeUntilNextSpawn += timeBetweenSpawns;
+
             SpawnEnemy();
         }
 
@@ -46,7 +47,7 @@ public class EnemyController : MonoBehaviour
 
     private void UpdateEnemies(float dt)
     {
-        for (int i = 0; i < enemies.Count; i++)
+        for (int i = enemies.Count - 1; i >= 0; i--)
         {
             GameObject enemy = enemies[i];
 
@@ -61,5 +62,18 @@ public class EnemyController : MonoBehaviour
                 playerHealthController.TakeDamage(enemyDamage);
             }
         }
+    }
+
+    public void ResetEnemies()
+    {
+        for (int i = enemies.Count - 1; i >= 0; i--)
+        {
+            GameObject enemy = enemies[i];
+
+            Destroy(enemy);
+            enemies.RemoveAt(i);
+        }
+
+        timeUntilNextSpawn = 0;
     }
 }

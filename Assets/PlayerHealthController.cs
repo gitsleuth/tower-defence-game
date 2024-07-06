@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class PlayerHealthController : MonoBehaviour
 {
+    [SerializeField] GameController gameController;
+
     public TMPro.TextMeshProUGUI playerHealthTextGUI;
 
-    public float playerHealth = 100;
+    public float playerHealth;
+    public float startingPlayerHealth = 100;
 
     // Start is called before the first frame update
     private void Start()
     {
+        ResetPlayerHealth();
+
         DisplayPlayerHealth();
     }
 
@@ -32,14 +37,18 @@ public class PlayerHealthController : MonoBehaviour
         DisplayPlayerHealth();
     }
 
-    // We'll use this later
     public void OnPlayerDead()
     {
-        print("Player died");
+        gameController.ResetGame();
     }
 
     private void DisplayPlayerHealth()
     {
         playerHealthTextGUI.text = "Player Health: " + playerHealth.ToString();
+    }
+
+    public void ResetPlayerHealth()
+    {
+        playerHealth = startingPlayerHealth;
     }
 }

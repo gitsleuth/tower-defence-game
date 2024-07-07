@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PlacementSystem : MonoBehaviour
 {
+    [SerializeField] FighterObjectController fighterObjectController;
+
     public GameObject fighterPlacementMarker;
     public GameObject fighterToBeBuilt;
-    public List<GameObject> fighters = new List<GameObject>();
     public bool movingFighterPlacementMarker = true;
     public bool canMove = true;
 
@@ -20,17 +21,6 @@ public class PlacementSystem : MonoBehaviour
     private void Update()
     {
 
-    }
-
-    public void DestroyAllFighters()
-    {
-        for (int i = fighters.Count - 1; i >= 0; i--)
-        {
-            GameObject fighter = fighters[i];
-
-            Destroy(fighter);
-            fighters.RemoveAt(i);
-        }
     }
 
     public void ResetFighterPlacementMarker()
@@ -54,10 +44,14 @@ public class PlacementSystem : MonoBehaviour
 
     public void PlaceFighter()
     {
-        fighters.Add(Instantiate(fighterToBeBuilt, fighterPlacementMarker.transform.position, fighterPlacementMarker.transform.rotation));
+        GameObject fighter = Instantiate(fighterToBeBuilt, fighterPlacementMarker.transform.position, fighterPlacementMarker.transform.rotation);
+
+        fighterObjectController.RegisterFighterObject(fighter);
 
         fighterPlacementMarker.GetComponent<SpriteRenderer>().enabled = false;
         fighterPlacementMarker.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+
+        fighterObjectController.RegisterFighterObject(fighter);
     }
 
     public void SetMovingFighterPlacementMarkerToTrue()

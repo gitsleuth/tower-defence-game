@@ -29,7 +29,7 @@ public class InputController : MonoBehaviour
                 if (touch.phase == TouchPhase.Began) {
                     bool toggledFireRadius = false;
 
-                    foreach (GameObject fighter in placementSystem.fighters)
+                    foreach (GameObject fighter in fighterObjectController.fighters)
                     {
                         Transform fighterTransform = fighter.transform;
                         Vector3 fighterPosition = fighterTransform.position;

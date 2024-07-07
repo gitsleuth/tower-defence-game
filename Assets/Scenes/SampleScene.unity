@@ -154,6 +154,7 @@ MonoBehaviour:
   playerHealthController: {fileID: 2142398384}
   enemyController: {fileID: 1487236656}
   placementSystem: {fileID: 387253658}
+  fighterObjectController: {fileID: 1553286738}
 --- !u!4 &21037797
 Transform:
   m_ObjectHideFlags: 0
@@ -367,9 +368,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eaadac7e43244c9d8b4e123d651d7f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fighterObjectController: {fileID: 1553286738}
   fighterPlacementMarker: {fileID: 617953274}
   fighterToBeBuilt: {fileID: 728000507}
-  fighters: []
   movingFighterPlacementMarker: 1
   canMove: 1
 --- !u!4 &387253659
@@ -863,6 +864,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1374872670
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1374872672}
+  - component: {fileID: 1374872671}
+  m_Layer: 0
+  m_Name: ProjectileController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1374872671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374872670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3c18c6ad525840039eb27aef5d21e7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 335095021}
+  bulletSpeed: 5
+--- !u!4 &1374872672
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374872670}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1439222367
 GameObject:
   m_ObjectHideFlags: 0
@@ -1176,8 +1223,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16422e7f773b5466ab2aa2f07d0c52c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyController: {fileID: 1487236656}
+  inputController: {fileID: 1025943670}
+  projectileController: {fileID: 1374872671}
   fireRadiusEnabled: 0
   fighterObjectTouchedBefore: {fileID: 0}
+  fighters: []
 --- !u!4 &1553286739
 Transform:
   m_ObjectHideFlags: 0
@@ -1684,3 +1735,4 @@ SceneRoots:
   - {fileID: 21037797}
   - {fileID: 1025943671}
   - {fileID: 1553286739}
+  - {fileID: 1374872672}

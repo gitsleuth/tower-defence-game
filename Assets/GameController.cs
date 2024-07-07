@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour
     [SerializeField] PlayerHealthController playerHealthController;
     [SerializeField] EnemyController enemyController;
     [SerializeField] PlacementSystem placementSystem;
+    [SerializeField] FighterObjectController fighterObjectController;
 
     // Start is called before the first frame update
     private void Start()
@@ -24,7 +25,7 @@ public class GameController : MonoBehaviour
     {
         playerHealthController.ResetPlayerHealth();
         enemyController.ResetEnemies();
-        placementSystem.DestroyAllFighters();
+        fighterObjectController.DestroyAllFighters();
         placementSystem.ResetFighterPlacementMarker();
     }
 }

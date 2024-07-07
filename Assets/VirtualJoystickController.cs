@@ -10,10 +10,12 @@ public class VirtualJoystickController : MonoBehaviour
     public Transform VirtualJoystickHolderTrans;
     public bool beganOnJoystick = false;
 
+    private float radius;
+
     // Start is called before the first frame update
     private void Start()
     {
-        
+        radius = VirtualJoystickHolderTrans.localScale.x / 2;
     }
 
     // Update is called once per frame
@@ -24,26 +26,25 @@ public class VirtualJoystickController : MonoBehaviour
 
     public bool CheckIfTouchIsOnJoystick(Vector3 touchPos)
     {
-        return (touchPos - VirtualJoystickHolderTrans.position).magnitude <= VirtualJoystickHolderTrans.localScale.x / 2;
+        return (touchPos - VirtualJoystickHolderTrans.position).magnitude <= radius;
     }
 
     public void SetPostionOfJoystick(Vector3 touchPos, float dt)
     {
+        Vector3 direction = touchPos - VirtualJoystickHolderTrans.position;
+
+        float speed = Mathf.Clamp(direction.magnitude / radius, 0, 1) * playerCharacterController.playerMaxSpeed;
+
+        playerCharacterController.MovePlayer(direction, dt, speed);
+
+        direction.Normalize();
+
         if (CheckIfTouchIsOnJoystick(touchPos))
         {
             VirtualJoystickTrans.position = touchPos;
-
-            Vector3 direction = touchPos - VirtualJoystickHolderTrans.position;
-            direction.Normalize();
-
-            playerCharacterController.MovePlayer(direction, dt);
         } else
         {
-            Vector3 direction = touchPos - VirtualJoystickHolderTrans.position;
-            direction.Normalize();
             VirtualJoystickTrans.position = VirtualJoystickHolderTrans.position + direction * direction.magnitude;
-
-            playerCharacterController.MovePlayer(direction, dt);
         }
     }
 

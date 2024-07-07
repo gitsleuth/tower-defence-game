@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCharacterTrans: {fileID: 699936684}
-  playerMaxSpeed: 5
+  playerMaxSpeed: 2
 --- !u!4 &331842412
 Transform:
   m_ObjectHideFlags: 0

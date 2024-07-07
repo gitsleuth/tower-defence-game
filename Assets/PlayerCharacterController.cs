@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerCharacterController : MonoBehaviour
 {
     public Transform playerCharacterTrans;
-    public float playerMaxSpeed = 5;
+    public float playerMaxSpeed = 2;
 
     // Start is called before the first frame update
     private void Start()
@@ -19,8 +19,8 @@ public class PlayerCharacterController : MonoBehaviour
         
     }
 
-    public void MovePlayer(Vector3 direction, float dt)
+    public void MovePlayer(Vector3 direction, float dt, float speed)
     {
-        playerCharacterTrans.position += direction * dt * playerMaxSpeed;
+        playerCharacterTrans.position += direction * dt * speed;
     }
 }

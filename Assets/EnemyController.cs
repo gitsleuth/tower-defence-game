@@ -76,4 +76,10 @@ public class EnemyController : MonoBehaviour
 
         timeUntilNextSpawn = 0;
     }
+
+    public void DestroyEnemy(GameObject enemy, int i)
+    {
+        Destroy(enemy);
+        enemies.RemoveAt(i);
+    }
 }

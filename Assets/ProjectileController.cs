@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
 {
+    [SerializeField] EnemyController enemyController;
+
     public GameObject projectile;
     public float bulletSpeed = 5;
 
@@ -20,12 +22,27 @@ public class ProjectileController : MonoBehaviour
     {
         foreach (KeyValuePair<GameObject, Vector3> data in projectiles)
         {
-            data.Key.transform.position += -data.Key.transform.up * bulletSpeed * Time.deltaTime;
+            GameObject projectile = data.Key;
+
+            projectile.transform.position += -projectile.transform.up * bulletSpeed * Time.deltaTime;
+
+            for (int i = enemyController.enemies.Count - 1; i >= 0; i--)
+            {
+                GameObject enemy = enemyController.enemies[i];
+
+                if (projectile.GetComponent<CircleCollider2D>().bounds.Intersects(enemy.GetComponent<CircleCollider2D>().bounds))
+                {
+                    enemyController.DestroyEnemy(enemy, i);
+                }
+            }
         }
     }
 
     public void SpawnProjectile(Vector3 origin, Quaternion rotation, Vector3 direction)
     {
-        projectiles.Add(Instantiate(projectile, origin, rotation), direction);
+        GameObject newProjectile = Instantiate(projectile, origin, rotation);
+        newProjectile.GetComponent<SpriteRenderer>().enabled = true;
+        newProjectile.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+        projectiles.Add(newProjectile, direction);
     }
 }

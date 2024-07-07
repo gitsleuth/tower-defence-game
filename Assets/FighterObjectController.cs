@@ -36,7 +36,6 @@ public class FighterObjectController : MonoBehaviour
                     if ((fighter.transform.position - enemy.transform.position).magnitude <= inputController.fireRadius.transform.localScale.x)
                     {
                         Vector3 direction = enemy.transform.position - fighter.transform.position;
-                        float dist = direction.magnitude;
                         direction.Normalize();
                         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 

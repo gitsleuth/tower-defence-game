@@ -9,7 +9,7 @@ public class ProjectileController : MonoBehaviour
     public GameObject projectile;
     public float bulletSpeed = 5;
 
-    private Dictionary<GameObject, Vector3> projectiles = new Dictionary<GameObject, Vector3>();
+    private List<GameObject> projectiles = new List<GameObject>();
 
     // Start is called before the first frame update
     private void Start()
@@ -20,29 +20,32 @@ public class ProjectileController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        foreach (KeyValuePair<GameObject, Vector3> data in projectiles)
+        for (int i = projectiles.Count - 1; i >= 0; i--)
         {
-            GameObject projectile = data.Key;
+            GameObject projectile = projectiles[i];
 
             projectile.transform.position += -projectile.transform.up * bulletSpeed * Time.deltaTime;
 
-            for (int i = enemyController.enemies.Count - 1; i >= 0; i--)
+            for (int j = enemyController.enemies.Count - 1; j >= 0; j--)
             {
-                GameObject enemy = enemyController.enemies[i];
+                GameObject enemy = enemyController.enemies[j];
 
                 if (projectile.GetComponent<CircleCollider2D>().bounds.Intersects(enemy.GetComponent<CircleCollider2D>().bounds))
                 {
-                    enemyController.DestroyEnemy(enemy, i);
+                    Destroy(projectile);
+                    projectiles.RemoveAt(i);
+
+                    enemyController.DestroyEnemy(enemy, j);
                 }
             }
         }
     }
 
-    public void SpawnProjectile(Vector3 origin, Quaternion rotation, Vector3 direction)
+    public void SpawnProjectile(Vector3 origin, Quaternion rotation)
     {
         GameObject newProjectile = Instantiate(projectile, origin, rotation);
         newProjectile.GetComponent<SpriteRenderer>().enabled = true;
         newProjectile.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
-        projectiles.Add(newProjectile, direction);
+        projectiles.Add(newProjectile);
     }
 }

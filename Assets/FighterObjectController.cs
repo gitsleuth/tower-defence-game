@@ -12,6 +12,8 @@ public class FighterObjectController : MonoBehaviour
     public GameObject fighterObjectTouchedBefore = null;
     public List<GameObject> fighters = new List<GameObject>();
 
+    private Dictionary<GameObject, float> timeUntilNextShot = new Dictionary<GameObject, float>();
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -23,18 +25,25 @@ public class FighterObjectController : MonoBehaviour
     {
         foreach (GameObject fighter in fighters)
         {
-            foreach (GameObject enemy in enemyController.enemies)
+            timeUntilNextShot[fighter] -= Time.deltaTime;
+
+            while (timeUntilNextShot[fighter] <= 0)
             {
-                if ((fighter.transform.position - enemy.transform.position).magnitude <= inputController.fireRadius.transform.localScale.x)
+                timeUntilNextShot[fighter] += 2;
+
+                foreach (GameObject enemy in enemyController.enemies)
                 {
-                    Vector3 direction = enemy.transform.position - fighter.transform.position;
-                    float dist = direction.magnitude;
-                    direction.Normalize();
-                    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                    if ((fighter.transform.position - enemy.transform.position).magnitude <= inputController.fireRadius.transform.localScale.x)
+                    {
+                        Vector3 direction = enemy.transform.position - fighter.transform.position;
+                        float dist = direction.magnitude;
+                        direction.Normalize();
+                        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-                    fighter.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+                        fighter.transform.rotation = Quaternion.Euler(0f, 0f, angle);
 
-                    projectileController.SpawnProjectile(fighter.transform.position + direction * 1, Quaternion.Euler(0f, 0f, angle + 90), fighter.transform.forward);
+                        projectileController.SpawnProjectile(fighter.transform.position + direction * 0.5f, Quaternion.Euler(0f, 0f, angle + 90));
+                    }
                 }
             }
         }
@@ -42,7 +51,10 @@ public class FighterObjectController : MonoBehaviour
 
     public void RegisterFighterObject(GameObject fighter)
     {
+        print("Registered");
+
         fighters.Add(fighter);
+        timeUntilNextShot.Add(fighter, 0);
     }
 
     public void DestroyAllFighters()

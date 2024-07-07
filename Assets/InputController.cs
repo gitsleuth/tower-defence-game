@@ -80,6 +80,8 @@ public class InputController : MonoBehaviour
                 }
             } else if (touch.phase == TouchPhase.Ended)
             {
+                print("Ended");
+
                 if (placementSystem.canMove && placementSystem.movingFighterPlacementMarker)
                 {
                     placementSystem.PlaceFighter();

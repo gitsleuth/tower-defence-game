@@ -46,8 +46,6 @@ public class PlacementSystem : MonoBehaviour
     {
         GameObject fighter = Instantiate(fighterToBeBuilt, fighterPlacementMarker.transform.position, fighterPlacementMarker.transform.rotation);
 
-        fighterObjectController.RegisterFighterObject(fighter);
-
         fighterPlacementMarker.GetComponent<SpriteRenderer>().enabled = false;
         fighterPlacementMarker.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
 

@@ -6,11 +6,14 @@ public class UIController : MonoBehaviour
 {
     [SerializeField] PlacementSystem placementSystem;
 
-    public UnityEngine.UI.Button placeBasicFighterButton;
+    public GameObject placeBasicFighterButtonGameObject;
+
+    private UnityEngine.UI.Button placeBasicFighterButton;
 
     // Start is called before the first frame update
     void Start()
     {
+        placeBasicFighterButton = placeBasicFighterButtonGameObject.GetComponent<UnityEngine.UI.Button>();
         placeBasicFighterButton.onClick.AddListener(() => placementSystem.StartPlacingFighter());
     }
 

@@ -6,8 +6,13 @@ public class InputController : MonoBehaviour
 {
     [SerializeField] FighterObjectController fighterObjectController;
     [SerializeField] VirtualJoystickController virtualJoystickController;
+    [SerializeField] PlacementSystem placementSystem;
+    [SerializeField] UIController uIController;
 
     public GameObject fireRadius;
+    public UnityEngine.EventSystems.EventSystem eventSystem;
+
+    private bool startedOverUI = false;
 
     // Start is called before the first frame update
     private void Start()
@@ -49,6 +54,8 @@ public class InputController : MonoBehaviour
 
     private void TouchBegan(Touch touch, float dt)
     {
+        startedOverUI = eventSystem.IsPointerOverGameObject(touch.fingerId);
+
         Vector3 touchPos = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 10));
 
         if (virtualJoystickController.CheckIfTouchIsOnJoystick(touchPos))
@@ -83,6 +90,11 @@ public class InputController : MonoBehaviour
         if (virtualJoystickController.beganOnJoystick)
         {
             virtualJoystickController.ResetJoystick();
+        } else if (placementSystem.placingFighter && !startedOverUI)
+        {
+            placementSystem.PlaceFighter();
         }
+
+        startedOverUI = false;
     }
 }

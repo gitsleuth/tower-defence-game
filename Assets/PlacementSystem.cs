@@ -5,8 +5,10 @@ using UnityEngine;
 public class PlacementSystem : MonoBehaviour
 {
     [SerializeField] PlayerCharacterController playerCharacterController;
+    [SerializeField] FighterObjectController fighterObjectController;
 
     public GameObject fighterPlacementMarker;
+    public GameObject fighter;
 
     private Transform fighterPlacementMarkerTrans;
 
@@ -32,5 +34,16 @@ public class PlacementSystem : MonoBehaviour
         fighterPlacementMarker.GetComponent<SpriteRenderer>().enabled = true;
         fighterPlacementMarkerTrans.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
         placingFighter = true;
+    }
+
+    public void PlaceFighter()
+    {
+        placingFighter = false;
+        GameObject newFighter = Instantiate(fighter, fighterPlacementMarkerTrans.position, fighterPlacementMarkerTrans.rotation);
+        newFighter.GetComponent<SpriteRenderer>().enabled = true;
+        fighterObjectController.RegisterFighterObject(newFighter);
+
+        fighterPlacementMarker.GetComponent<SpriteRenderer>().enabled = false;
+        fighterPlacementMarkerTrans.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
     }
 }

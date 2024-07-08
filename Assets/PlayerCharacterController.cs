@@ -21,6 +21,7 @@ public class PlayerCharacterController : MonoBehaviour
 
     public void MovePlayer(Vector3 direction, float dt, float speed)
     {
+        print(speed);
         playerCharacterTrans.position += direction * dt * speed;
     }
 }

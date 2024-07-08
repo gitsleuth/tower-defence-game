@@ -35,9 +35,9 @@ public class VirtualJoystickController : MonoBehaviour
 
         float speed = Mathf.Clamp(direction.magnitude / radius, 0, 1) * playerCharacterController.playerMaxSpeed;
 
-        playerCharacterController.MovePlayer(direction, dt, speed);
-
         direction.Normalize();
+
+        playerCharacterController.MovePlayer(direction, dt, speed);
 
         if (CheckIfTouchIsOnJoystick(touchPos))
         {

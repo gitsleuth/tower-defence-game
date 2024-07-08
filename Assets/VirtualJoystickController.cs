@@ -44,7 +44,7 @@ public class VirtualJoystickController : MonoBehaviour
             VirtualJoystickTrans.position = touchPos;
         } else
         {
-            VirtualJoystickTrans.position = VirtualJoystickHolderTrans.position + direction * direction.magnitude;
+            VirtualJoystickTrans.position = VirtualJoystickHolderTrans.position + direction * radius;
         }
     }
 

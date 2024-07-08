@@ -49,4 +49,14 @@ public class PlayerCharacterController : MonoBehaviour
     {
         playerCharacterTrans.position += direction * dt * speed;
     }
+
+    public Vector3 GetPlayerPosition()
+    {
+        return playerCharacterTrans.position;
+    }
+
+    public Vector3 GetPlayerDirection()
+    {
+        return Vector3.up;
+    }
 }

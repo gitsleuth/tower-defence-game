@@ -7,6 +7,8 @@ public class PlayerCharacterController : MonoBehaviour
     public Transform playerCharacterTrans;
     public float playerMaxSpeed = 2;
 
+    private Vector3 playerDirection = Vector3.up;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -48,6 +50,8 @@ public class PlayerCharacterController : MonoBehaviour
     public void MovePlayer(Vector3 direction, float dt, float speed)
     {
         playerCharacterTrans.position += direction * dt * speed;
+
+        playerDirection = direction;
     }
 
     public Vector3 GetPlayerPosition()
@@ -57,6 +61,6 @@ public class PlayerCharacterController : MonoBehaviour
 
     public Vector3 GetPlayerDirection()
     {
-        return Vector3.up;
+        return playerDirection;
     }
 }

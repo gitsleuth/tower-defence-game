@@ -23,7 +23,7 @@ public class PlacementSystem : MonoBehaviour
     {
         if (placingFighter)
         {
-            fighterPlacementMarkerTrans.position = playerCharacterController.GetPlayerPosition() + playerCharacterController.GetPlayerDirection() * 2;
+            fighterPlacementMarkerTrans.position = playerCharacterController.GetPlayerPosition() + playerCharacterController.GetPlayerDirection() * 1;
         }
     }
 

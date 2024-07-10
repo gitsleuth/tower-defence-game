@@ -25,8 +25,6 @@ public class InputController : MonoBehaviour
     {
         if (Input.touchCount > 0)
         {
-            print(Input.touchCount);
-
             Touch touch = Input.GetTouch(0);
 
             float dt = Time.deltaTime;

@@ -8,6 +8,7 @@ public class ProjectileController : MonoBehaviour
 
     public GameObject projectile;
     public float bulletSpeed = 5;
+    public float projectileDamage = 10;
 
     private List<GameObject> projectiles = new List<GameObject>();
 
@@ -35,7 +36,7 @@ public class ProjectileController : MonoBehaviour
                     Destroy(projectile);
                     projectiles.RemoveAt(i);
 
-                    enemyController.DestroyEnemy(enemy, j);
+                    enemyController.DealDamageToEnemy(enemy, j, projectileDamage);
                 }
             }
         }

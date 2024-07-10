@@ -50,8 +50,6 @@ public class FighterObjectController : MonoBehaviour
 
     public void RegisterFighterObject(GameObject fighter)
     {
-        print("Registered");
-
         fighters.Add(fighter);
         timeUntilNextShot.Add(fighter, 0);
     }

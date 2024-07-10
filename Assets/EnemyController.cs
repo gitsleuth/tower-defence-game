@@ -72,8 +72,7 @@ public class EnemyController : MonoBehaviour
             if (enemy.transform.position.x >= exit.transform.position.x)
             {
                 // Destroy enemy
-                Destroy(enemy);
-                enemies.RemoveAt(i);
+                DestroyEnemy(enemy, i);
 
                 playerHealthController.TakeDamage(enemyDamage);
             }
@@ -95,11 +94,11 @@ public class EnemyController : MonoBehaviour
 
     public void DestroyEnemy(GameObject enemy, int i)
     {
-        Destroy(enemy);
-        enemies.RemoveAt(i);
-
         Destroy(enemyHealthText[enemy]);
         enemyHealthText.Remove(enemy);
+
+        Destroy(enemy);
+        enemies.RemoveAt(i);
     }
 
     public void DealDamageToEnemy(GameObject enemy, int i, float damage)

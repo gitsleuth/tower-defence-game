@@ -2254,7 +2254,7 @@ MonoBehaviour:
   playerHealthController: {fileID: 2142398384}
   enemy: {fileID: 946723578}
   exit: {fileID: 732805958}
-  enemySpeed: 0.36
+  enemySpeed: 1
   timeBetweenSpawns: 50
   enemyDamage: 5
   enemies: []

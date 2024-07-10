@@ -31,34 +31,17 @@ public class EnemyController : MonoBehaviour
     {
         float dt = Time.deltaTime;
 
-        timeUntilNextSpawn -= dt;
+        //timeUntilNextSpawn -= dt;
 
-        while (timeUntilNextSpawn <= 0) {
-            timeUntilNextSpawn += timeBetweenSpawns;
+        //while (timeUntilNextSpawn <= 0) {
+        //    timeUntilNextSpawn += timeBetweenSpawns;
 
-            SpawnEnemy();
-        }
+        //    SpawnEnemy();
+        //}
 
         UpdateEnemies(dt);
 
         UpdateHealthTextPositions();
-    }
-
-    private void SpawnEnemy()
-    {
-        GameObject newEnemy = Instantiate(enemy);
-        newEnemy.GetComponent<SpriteRenderer>().enabled = true;
-        Transform healthBarHolderTrans = newEnemy.transform.GetChild(0);
-        healthBarHolderTrans.GetComponent<SpriteRenderer>().enabled = true;
-        Transform healthBarTrans = healthBarHolderTrans.GetChild(0);
-        healthBarTrans.GetComponent<SpriteRenderer>().enabled = true;
-        enemyHealth.Add(newEnemy, defaultEnemyHealth);
-        GameObject healthText = Instantiate(enemyHealthTextObject, healthBarTrans.position + Vector3.up * 1, enemyHealthTextObject.transform.rotation);
-        healthText.GetComponent<TMPro.TMP_Text>().enabled = true;
-        healthText.transform.SetParent(canvasTrans);
-        enemyHealthText.Add(newEnemy, healthText.GetComponent<TMPro.TextMeshProUGUI>());
-        UpdateHealthUI(newEnemy);
-        enemies.Add(newEnemy);
     }
 
     private void UpdateEnemies(float dt)
@@ -77,6 +60,23 @@ public class EnemyController : MonoBehaviour
                 playerHealthController.TakeDamage(enemyDamage);
             }
         }
+    }
+
+    public void SpawnEnemy()
+    {
+        GameObject newEnemy = Instantiate(enemy);
+        newEnemy.GetComponent<SpriteRenderer>().enabled = true;
+        Transform healthBarHolderTrans = newEnemy.transform.GetChild(0);
+        healthBarHolderTrans.GetComponent<SpriteRenderer>().enabled = true;
+        Transform healthBarTrans = healthBarHolderTrans.GetChild(0);
+        healthBarTrans.GetComponent<SpriteRenderer>().enabled = true;
+        enemyHealth.Add(newEnemy, defaultEnemyHealth);
+        GameObject healthText = Instantiate(enemyHealthTextObject, healthBarTrans.position + Vector3.up * 1, enemyHealthTextObject.transform.rotation);
+        healthText.GetComponent<TMPro.TMP_Text>().enabled = true;
+        healthText.transform.SetParent(canvasTrans);
+        enemyHealthText.Add(newEnemy, healthText.GetComponent<TMPro.TextMeshProUGUI>());
+        UpdateHealthUI(newEnemy);
+        enemies.Add(newEnemy);
     }
 
     public void ResetEnemies()

@@ -130,8 +130,8 @@ public class EnemyController : MonoBehaviour
     {
         foreach (KeyValuePair<GameObject, TMPro.TextMeshProUGUI> data in enemyHealthText)
         {
-            Transform healthBarTrans = data.Key.transform.GetChild(0).GetChild(0);
-            data.Value.transform.position = Camera.main.WorldToScreenPoint(healthBarTrans.position + Vector3.up * 0.2f);
+            Transform healthBarHolderTrans = data.Key.transform.GetChild(0);
+            data.Value.transform.position = Camera.main.WorldToScreenPoint(healthBarHolderTrans.position + Vector3.up * 0.2f);
         }
     }
 }

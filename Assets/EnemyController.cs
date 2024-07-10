@@ -97,6 +97,9 @@ public class EnemyController : MonoBehaviour
     {
         Destroy(enemy);
         enemies.RemoveAt(i);
+
+        Destroy(enemyHealthText[enemy]);
+        enemyHealthText.Remove(enemy);
     }
 
     public void DealDamageToEnemy(GameObject enemy, int i, float damage)

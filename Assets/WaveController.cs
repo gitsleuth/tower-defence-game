@@ -17,21 +17,24 @@ public class WaveController : MonoBehaviour
     [SerializeField] EnemyController enemyController;
 
     public TMPro.TMP_Text waveText;
+    public TMPro.TMP_Text waveTimerText;
 
     private Wave[] waves = {
         new Wave(4),
         new Wave(6),
-        // new Wave(5)
+        new Wave(5)
     };
     private int waveNumber = 0;
     private int enemiesLeftToSpawn = 0;
     private float elapsed = 0;
     private bool spawnEnemies = false;
+    private float nextWavePause = 10;
+    private float nextWaveTimer;
 
     // Start is called before the first frame update
     private void Start()
     {
-        
+        nextWaveTimer = nextWavePause;
     }
 
     // Update is called once per frame
@@ -49,13 +52,24 @@ public class WaveController : MonoBehaviour
                 }
                 enemyController.SpawnEnemy();
             }
-        }
-
-        if (enemyController.enemies.Count == 0 && spawnEnemies && waveNumber < waves.Length - 1)
+        } else if (enemyController.enemies.Count == 0 && spawnEnemies && waveNumber < waves.Length - 1)
         {
-            waveNumber += 1;
+            nextWaveTimer -= Time.deltaTime;
 
-            StartWave(waves[waveNumber]);
+            waveTimerText.text = "Starting new wave in " + Mathf.Round(nextWaveTimer) + "s";
+
+            waveTimerText.enabled = true;
+
+            if (nextWaveTimer <= 0)
+            {
+                nextWaveTimer = nextWavePause;
+
+                waveNumber += 1;
+
+                StartWave(waves[waveNumber]);
+
+                waveTimerText.enabled = false;
+            }
         }
     }
 

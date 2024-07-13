@@ -18,23 +18,27 @@ public class WaveController : MonoBehaviour
 
     public TMPro.TMP_Text waveText;
     public TMPro.TMP_Text waveTimerText;
+    public UnityEngine.UI.Button startNewWaveButton;
 
     private Wave[] waves = {
         new Wave(4),
-        new Wave(6),
-        new Wave(5)
+        new Wave(8),
+        new Wave(4),
     };
     private int waveNumber = 0;
     private int enemiesLeftToSpawn = 0;
-    private float elapsed = 0;
+    private Dictionary<int, float> elapsed = new Dictionary<int, float>();
     private bool spawnEnemies = false;
-    private float nextWavePause = 10;
+    private float nextWavePause = 5;
     private float nextWaveTimer;
+    private float timeUntilCanStartNewWave;
 
     // Start is called before the first frame update
     private void Start()
     {
         nextWaveTimer = nextWavePause;
+
+        startNewWaveButton.onClick.AddListener(() => NextWave());
     }
 
     // Update is called once per frame
@@ -42,15 +46,30 @@ public class WaveController : MonoBehaviour
     {
         if (enemiesLeftToSpawn > 0)
         {
-            elapsed -= Time.deltaTime;
-            if (elapsed <= 0)
+            //int elapsedIndex = GetElapsedIndex();
+
+            //float dt = Time.deltaTime;
+            //timeUntilCanStartNewWave -= dt;
+            //elapsed -= dt;
+            //if (elapsed <= 0)
+            //{
+            //    enemiesLeftToSpawn -= 1;
+            //    if (enemiesLeftToSpawn > 0)
+            //    {
+            //        elapsed += 1;
+            //    }
+            //    enemyController.SpawnEnemy();
+            //}
+
+            foreach (KeyValuePair<int, float> data in elapsed)
             {
-                enemiesLeftToSpawn -= 1;
-                if (enemiesLeftToSpawn > 0)
-                {
-                    elapsed += 4;
-                }
-                enemyController.SpawnEnemy();
+                elapsed[data.Key] -= Time.deltaTime;
+            }
+
+            if (timeUntilCanStartNewWave <= 0 && waveNumber < waves.Length - 1)
+            {
+                startNewWaveButton.GetComponent<UnityEngine.UI.Image>().enabled = true;
+                startNewWaveButton.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().enabled = true;
             }
         } else if (enemyController.enemies.Count == 0 && spawnEnemies && waveNumber < waves.Length - 1)
         {
@@ -64,13 +83,18 @@ public class WaveController : MonoBehaviour
             {
                 nextWaveTimer = nextWavePause;
 
-                waveNumber += 1;
-
-                StartWave(waves[waveNumber]);
+                NextWave();
 
                 waveTimerText.enabled = false;
             }
         }
+    }
+
+    private void NextWave()
+    {
+        waveNumber += 1;
+
+        StartWave(waves[waveNumber]);
     }
 
     private void StartWave(Wave wave)
@@ -78,6 +102,10 @@ public class WaveController : MonoBehaviour
         waveText.text = "Wave: " + (waveNumber + 1);
 
         enemiesLeftToSpawn = wave.Enemies;
+
+        timeUntilCanStartNewWave = 20;
+
+        //elapsed.Add(0);
     }
 
     public void StartSpawningWaves()
@@ -88,4 +116,9 @@ public class WaveController : MonoBehaviour
 
         spawnEnemies = true;
     }
+
+    //public int GetElapsedIndex()
+    //{
+
+    //}
 }

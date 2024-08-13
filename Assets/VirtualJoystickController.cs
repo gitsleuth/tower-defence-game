@@ -24,7 +24,7 @@ public class VirtualJoystickController : MonoBehaviour
         
     }
 
-    public bool CheckIfTouchIsOnJoystick(Vector3 touchPos)
+    public bool CheckIfTouchIsOnJoystickHolder(Vector3 touchPos)
     {
         return (touchPos - VirtualJoystickHolderTrans.position).magnitude <= radius;
     }
@@ -39,7 +39,7 @@ public class VirtualJoystickController : MonoBehaviour
 
         playerCharacterController.MovePlayer(direction, dt, speed);
 
-        if (CheckIfTouchIsOnJoystick(touchPos))
+        if (CheckIfTouchIsOnJoystickHolder(touchPos))
         {
             VirtualJoystickTrans.position = touchPos;
         } else

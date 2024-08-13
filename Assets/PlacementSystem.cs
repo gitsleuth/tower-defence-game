@@ -36,6 +36,11 @@ public class PlacementSystem : MonoBehaviour
         placingFighter = true;
     }
 
+    public void StopPlacingFighter()
+    {
+        placingFighter = false;
+    }
+
     public void PlaceFighter()
     {
         placingFighter = false;

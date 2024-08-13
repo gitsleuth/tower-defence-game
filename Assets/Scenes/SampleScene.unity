@@ -2131,6 +2131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placementSystem: {fileID: 387253658}
   placeBasicFighterButtonGameObject: {fileID: 1488004778}
+  textObject: {fileID: 48243026}
 --- !u!4 &1327808868
 Transform:
   m_ObjectHideFlags: 0
